@@ -1,0 +1,36 @@
+<% layout('./layouts/boilerplate') %>
+<% if(camp){  %> 
+  <form action="/campgrounds/<%=camp._id%>?_method=PUT" method="POST" class="form-validate" novalidate>
+    <div class="mb-3">
+      <label for="title" class="form-label">Enter Title</label>
+      <input type="text" class="form-control" id="title" name="campground[title]" value="<%=camp.title %> " required>
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Enter Price</label>
+      <div class="input-group mb-3">
+        <span class="input-group-text">$</span>
+        <input type="number" class="form-control" aria-label="price" id="price" name="campground[price]"
+          value=<%=camp.price %> required>
+        <span class="input-group-text">.00</span>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="location" class="form-label">Enter Location</label>
+      <input type="text" class="form-control" id="location" name="campground[location]" value="<%=camp.location %> "
+        required>
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Enter Image URL</label>
+      <input type="url" class="form-control" id="image" name="campground[image]" value="<%=camp.image %> " required>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Enter Description</label>
+      <textarea class="form-control" id="description" rows="6" name="campground[discription]"
+        required><%=camp.discription %></textarea>
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-success">Update</button>
+    </div>
+
+  </form>
+  <% } %> 
