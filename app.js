@@ -104,6 +104,9 @@ app.use((req, res, next) => {
     next();
 })
 
+app.get('/',(req,res)=>{
+    res.render('campgrounds/home')
+})
 app.use('/',user)
 app.use('/campgrounds',campgrounds)
 app.use('/campgrounds/:id/reviews',reviews)     // here we are also sending params to the router . Express divide params when this is sent so we need to tell the router to enable mergeParams property which is done in reviews file
