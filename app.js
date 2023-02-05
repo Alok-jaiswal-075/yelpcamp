@@ -38,22 +38,32 @@ mongoose.set('strictQuery',true)
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp'
 // const dbUrl =  'mongodb://localhost:27017/yelp-camp'
 
-mongoose.connect(dbUrl,{
-    // useCreateIndex:true,
-    // useNewUrlParse: true,
-    useUnifiedTopology: true
-}).then(d=>{
-    console.log("Mongodb connection successful!!")
-}).catch(err=>{
-    console.log("Mongodb connection error")
-    console.log(err)
-})
+// mongoose.connect(dbUrl,{
+//     // useCreateIndex:true,
+//     // useNewUrlParse: true,
+//     useUnifiedTopology: true
+// }).then(d=>{
+//     console.log("Mongodb connection successful!!")
+// }).catch(err=>{
+//     console.log("Mongodb connection error")
+//     console.log(err)
+// })
 
 const port = process.env.PORT || 3000;
 
-app.listen(port,()=>{
-    console.log("App is listening")
-})
+const connectDB = async () => {
+    try {
+      const conn = await mongoose.connect(process.env.DB_URL);
+      console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+      console.log(error);
+      process.exit(1);
+    }
+  }
+
+// app.listen(port,()=>{
+//     console.log("App is listening")
+// })
 
 
 const store = MongoStore.create({
@@ -133,3 +143,8 @@ app.use((err,req,res,next)=>{
 })
 
 
+connectDB().then(() => {
+    app.listen(port, () => {
+        console.log("listening for requests");
+    })
+})
